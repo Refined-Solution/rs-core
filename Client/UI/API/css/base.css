@@ -1,0 +1,92 @@
+:root {
+    --SCALE: 1.0;
+    overflow: hidden;
+}
+
+body {
+    overflow: hidden;
+}
+
+* {
+    user-select: none;;
+}
+
+.scale {
+    position: absolute;
+    overflow: hidden;
+    --TOP: 0px;
+    --LEFT: 0px;
+    --WIDTH: 0px;
+    --HEIGHT: 0px;
+    --RADIUS: 0px;
+    --RADIUS2: 0px;
+    --RADIUS3: 0px;
+    --RADIUS4: 0px;
+    --FIX-HORIZONTAL: 0%;
+    --FIX-VERTICAL: 0%;
+    --FIX-HORIZONTAL-BARE: 0;
+    --FIX-VERTICAL-BARE: 0;
+    --SCALE-X: 1.0;
+    --SCALE-Y: 1.0;
+    --ROTATE: 0deg;
+    --BWIDTH: 0px;
+    --FSIZE: 12px;
+    left: calc(var(--FIX-HORIZONTAL) + var(--LEFT) * var(--SCALE) + var(--BWIDTH) * var(--FIX-HORIZONTAL-BARE) * 2);
+    top: calc(var(--FIX-VERTICAL) + var(--TOP) * var(--SCALE) + var(--BWIDTH) * var(--FIX-VERTICAL-BARE) * 2);
+    width: calc(var(--WIDTH) * var(--SCALE));
+    height: calc(var(--HEIGHT) * var(--SCALE));
+    transform: translate(
+        calc(
+            -1 * var(--FIX-HORIZONTAL)
+        ),
+        calc(
+            -1 * var(--FIX-VERTICAL)
+        )
+    ) scale(
+        var(--SCALE-X),
+        var(--SCALE-Y)
+    ) rotate(
+        var(--ROTATE)
+    );
+    border-radius: calc(var(--RADIUS) * var(--SCALE)) calc(var(--RADIUS2) * var(--SCALE)) calc(var(--RADIUS3) * var(--SCALE)) calc(var(--RADIUS4) * var(--SCALE));
+    line-height: calc(var(--LHEIGHT, var(--HEIGHT)) * var(--SCALE));
+    font-size: calc(var(--FSIZE) * var(--SCALE));
+}
+
+* {
+    outline: none;
+    margin: 0;
+    padding: 0;
+    border: none;
+    overflow: hidden;
+    border-style: none;
+    border-radius: 0;
+    border-width: 0;
+}
+
+input {
+    background-color: transparent;
+    cursor: text;
+    color: #fff;
+}
+
+::-webkit-scrollbar {
+    width: 2px;
+    height: 2px;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f12a;
+    overflow: hidden;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #470dda;
+    border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #511add;
+}

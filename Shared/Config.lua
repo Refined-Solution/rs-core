@@ -30,6 +30,15 @@ Config.inventory = {
     maxWeight = 50000
 }
 
+---@class Config.useDefault
+Config.useDefault = {
+
+    ---@type boolean if true, the default admin menu wil be used.
+    ---If you don't want to use the default admin menu, set this to false
+    adminMenu = true,
+
+}
+
 ---Generates a random character ID in the format "CITIZEN-AAAAAA-0000".
 ---This ID will be used to uniquely identify a character in the game and by default
 ---also shown on the players id card.
