@@ -32,7 +32,7 @@ Test.new('CPlayer:setActiveCharacter should set the active character', function(
     local player = Player.__of(client)
     local cPlayer = CPlayer.new(player)
     local CCharacter = ENVIRONMENT_GET_VAR(env, "CCharacter")
-    local cCharacter = CCharacter.new("test_citizen_id")
+    local cCharacter = CCharacter.new("my", "name", "01/01/2000", false)
 
     -- when
     cPlayer:setActiveCharacter(cCharacter)
@@ -47,7 +47,7 @@ Test.new('CPlayer:isInCharacter should return correct state', function()
     local player = Player.__of(client)
     local cPlayer = CPlayer.new(player)
     local CCharacter = ENVIRONMENT_GET_VAR(env, "CCharacter")
-    local cCharacter = CCharacter.new("test_citizen_id")
+    local cCharacter = CCharacter.new("my", "name", "01/01/2000", false)
 
     -- then
     if not Test.assert(cPlayer:isInCharacter() == false, "CPlayer should not be in character by default") then
@@ -66,7 +66,7 @@ Test.new('CPlayer:logout should clear active character', function()
     local player = Player.__of(client)
     local cPlayer = CPlayer.new(player)
     local CCharacter = ENVIRONMENT_GET_VAR(env, "CCharacter")
-    local cCharacter = CCharacter.new("test_citizen_id")
+    local cCharacter = CCharacter.new("my", "name", "01/01/2000", false)
 
     -- when
     cPlayer:setActiveCharacter(cCharacter)
@@ -88,4 +88,16 @@ Test.new("CPlayer:getIdentifier should return the player's identifier", function
 
     -- then
     return Test.assert(identifier == expectedIdentifier, "CPlayer:getIdentifier should return the player's identifier")
+end)
+
+Test.new('CPlayer:getName should return the player\'s name', function()
+    -- given
+    local cPlayer = Core.getPlayers()[1]
+
+    -- when
+    local name = cPlayer:getName()
+    local expectedName = cPlayer.player:GetName()
+
+    -- then
+    return Test.assert(name == expectedName, "CPlayer:getName should return the player's name")
 end)

@@ -126,6 +126,13 @@ function CPlayer:hasGroup(group)
     return groups:contains(group)
 end
 
+---Returns the name of this player.
+---@nodiscard
+---@return string name the name of this player
+function CPlayer:getName()
+    return self.player:GetName()
+end
+
 ---Triggers the given event on this player.
 ---@param event string the name of the event to trigger
 ---@param ... any the arguments to pass to the event handler

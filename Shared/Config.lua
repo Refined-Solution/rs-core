@@ -20,6 +20,16 @@ Config.log = {
 ---This is where the player groups are synchronized with.
 Config.guildId = nil
 
+---@class Config.inventory
+Config.inventory = {
+    ---@type number the amount of slots in the default player inventory.
+    slotCount = 5 * 8,
+
+    ---@type number the maximum weight this inventory can hold.
+    ---This is the maximum weight of all items in the inventory combined.
+    maxWeight = 50000
+}
+
 ---Generates a random character ID in the format "CITIZEN-AAAAAA-0000".
 ---This ID will be used to uniquely identify a character in the game and by default
 ---also shown on the players id card.

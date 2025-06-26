@@ -18,12 +18,15 @@ local function onJoin(player)
     Log.info("Player {name} joined with identifier {identifier}.", {name = player:GetName(), identifier = cPlayer:getIdentifier()})
     Core.LogSystem:createEntry(
         "rs-core",
-        {"join"},
+        { "join", "player", "player:quit" },
         StringUtils.format("Player {name} joined the server with identifier {identifier}.", {
             name = player:GetName(),
             identifier = cPlayer:getIdentifier()
         }),
-        {identifier = cPlayer:getIdentifier()}
+        {
+            identifier = cPlayer:getIdentifier(),
+            playerName = player:GetName(),
+        }
     )
 end
 
@@ -34,9 +37,12 @@ local function onQuit(player)
     Log.info("Player {name} left the server.", {name = player:GetName()})
     Core.LogSystem:createEntry(
         "rs-core",
-        {"quit"},
+        { "quit", "player", "player:quit" },
         StringUtils.format("Player {name} left the server.", {name = player:GetName()}),
-        {identifier = player:GetIdentifier()}
+        {
+            identifier = player:GetIdentifier(),
+            playerName = player:GetName(),
+        }
     )
     local cPlayer = playersByIdentifier[player:GetIdentifier()]
     if not cPlayer then return end

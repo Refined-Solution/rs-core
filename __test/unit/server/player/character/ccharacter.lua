@@ -18,7 +18,7 @@ end)
 
 Test.new('CCharacter.new should create a new core character', function()
     -- when
-    local cCharacter = CCharacter.new()
+    local cCharacter = CCharacter.new("my", "name", "01/01/2000", false)
 
     -- then
     return Test.assert(cCharacter.citizenId ~= nil and cCharacter.citizenId ~= "", "CCharacter.new should create a new core character")
@@ -66,7 +66,7 @@ end)
 
 Test.new('CCharacter:wake should set the character as active for the player', function()
     -- given
-    local cCharacter = CCharacter.new()
+    local cCharacter = CCharacter.new("my", "name", "01/01/2000", false)
     local cPlayer = CPlayer.new(Player.__of(client))
 
     -- when
@@ -78,7 +78,7 @@ end)
 
 Test.new('CCharacter:wake should not set the character as active if already possessed', function()
     -- given
-    local cCharacter = CCharacter.new()
+    local cCharacter = CCharacter.new("my", "name", "01/01/2000", false)
     local cPlayer1 = CPlayer.new(Player.__of(client))
     local cPlayer2 = CPlayer.new(Player.__of(client2))
 
@@ -92,7 +92,7 @@ end)
 
 Test.new('CCharacter:sleep should mark the character as inactive', function()
     -- given
-    local cCharacter = CCharacter.new()
+    local cCharacter = CCharacter.new("my", "name", "01/01/2000", false)
     local cPlayer = CPlayer.new(Player.__of(client))
 
     -- when
@@ -105,7 +105,7 @@ end)
 
 Test.new('CCharacter:getBanking should return the banking account', function()
     -- given
-    local cCharacter = CCharacter.new()
+    local cCharacter = CCharacter.new("my", "name", "01/01/2000", false)
 
     -- when
     local banking = cCharacter:getBanking()
@@ -113,4 +113,18 @@ Test.new('CCharacter:getBanking should return the banking account', function()
     -- then
     return Test.assert(banking ~= nil, "CCharacter:getBanking should return the banking account") and
            Test.assert(banking.id == cCharacter.bid, "CCharacter:getBanking should return the correct banking account for the character")
+end)
+
+Test.new('CCharacter:getInventory should return the inventory', function()
+    -- given
+    local cCharacter = CCharacter.new("my", "name", "01/01/2000", false)
+
+    -- when
+    local inventory = cCharacter:getInventory()
+
+    -- then
+    return Test.assert(inventory ~= nil, "CCharacter:getInventory should return the inventory") and
+           Test.assert(inventory.id == cCharacter.invId, "CCharacter:getInventory should return the correct inventory for the character") and
+           Test.assertEqual(inventory.slotCount, 40, "CCharacter:getInventory should return the inventory with the correct slot count") and
+           Test.assertEqual(inventory.maxWeight, 50000, "CCharacter:getInventory should return the inventory with the correct max weight")
 end)

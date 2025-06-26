@@ -7,6 +7,7 @@
 ---@field dateOfBirth string the date of birth of the character in the format YYYY-MM
 ---@field gender boolean false: male, true: female
 ---@field bid string the bid of the players primary banking account.
+---@field invId number the id of the players primary inventory.
 ---@field cache Cache cached data for this character.
 CCharacter = {}
 setmetatable(CCharacter, {
@@ -83,6 +84,8 @@ function CCharacter.new(firstName, lastName, dateOfBirth, gender)
     cCharacter.gender = gender
     local account = Account.new()
     cCharacter.bid = account.id
+    local inventory = Inventory.new(Config.inventory.slotCount, Config.inventory.maxWeight)
+    cCharacter.invId = inventory.id
     return cCharacter
 end
 
@@ -97,6 +100,18 @@ function CCharacter:wake(cPlayer)
 
     self.possesedBy = cPlayer
     cPlayer:trigger('rs:core:character:wake', self:getData())
+    Core.LogSystem:createEntry(
+        "rs-core",
+        { "wake", "character", "character:wake" },
+        StringUtils.format("Player {name} is now playing {character}.", {
+            name = cPlayer:getName(),
+            character = self:getName()
+        }),
+        {
+            playerIdentifier = cPlayer:getIdentifier(), characterId = self.citizenId,
+            playerName = cPlayer:getName(), characterName = self:getName()
+        }
+    )
     return true
 end
 
@@ -113,6 +128,15 @@ end
 function CCharacter:getBanking()
     return self.cache:get('banking', function ()
         return Account.load(self.bid)
+    end)
+end
+
+---Returns the inventory of this character.
+---@nodiscard
+---@return Inventory inventory the inventory of this character.
+function CCharacter:getInventory()
+    return self.cache:get('inventory', function ()
+        return Inventory.load(self.invId)
     end)
 end
 
@@ -144,5 +168,17 @@ function CCharacter:sleep()
     self.possesedBy = nil
     if cPlayer then
         cPlayer:trigger('rs:core:character:sleep', self:getData())
+        Core.LogSystem:createEntry(
+            "rs-core",
+            { "sleep", "character", "character:sleep" },
+            StringUtils.format("Player {name} is now playing {character}.", {
+                name = cPlayer:getName(),
+                character = self:getName()
+            }),
+            {
+                playerIdentifier = cPlayer:getIdentifier(), characterId = self.citizenId,
+                playerName = cPlayer:getName(), characterName = self:getName()
+            }
+        )
     end
 end

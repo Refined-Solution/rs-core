@@ -4,6 +4,10 @@
 ---@field slotCount number the amount of slots in this inventory.
 ---@field maxWeight number the maximum weight this inventory can hold.
 Inventory = {}
+
+---@type Cache
+local inventories = Cache()
+
 setmetatable(Inventory, {
     __call = function(cls, id, slotCount, maxWeight)
         local obj = {}
@@ -12,13 +16,12 @@ setmetatable(Inventory, {
         obj.slots = {}
         obj.slotCount = slotCount
         obj.maxWeight = maxWeight
+        inventories:set(id, obj)
         return obj
     end
 })
 Inventory.__index = Inventory
 
----@type Cache
-local inventories = Cache()
 
 ---Creates a new inventory in the database and returns its id.
 ---@nodiscard
@@ -40,7 +43,7 @@ end
 
 ---Loads the inventory with the given id.
 ---@nodiscard
----@param id string the id of the inventory to load.
+---@param id number the id of the inventory to load.
 ---@return Inventory? inventory the loaded inventory, or nil if it could not be loaded.
 function Inventory.load(id, slots, maxWeight)
     return inventories:get(id, function ()
