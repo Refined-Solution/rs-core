@@ -48,3 +48,18 @@ Test.new('Config.generateTransactionId should return a string <= 32 characters',
     return Test.assert(type(transactionId) == "string" and #transactionId <= 32, "Config generateTransactionId should return a string with length <= 32")
 end)
 
+Test.new('Config.target should be a table', function()
+    return Test.assertEqual(type(Config.target), "table", "Config.target should be a table")
+end)
+
+Test.new('Config.target.displayPolicy should be "only-closest" by default', function()
+    return Test.assertEqual(Config.target.displayPolicy, "only-closest", "Config.target.displayPolicy should be 'only-closest' by default")
+end)
+
+Test.new('Config.target.interactRange should be 5.0 by default', function()
+    return Test.assertEqual(Config.target.interactRange, 5.0, "Config.target.interactRange should be 5.0 by default")
+end)
+
+Test.new('Config.target.interactKey should be "ALT" by default', function()
+    return Test.assertEqual(Config.target.interactKey, 'ALT', "Config.target.interactKey should be 'ALT' by default")
+end)

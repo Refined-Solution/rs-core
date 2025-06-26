@@ -39,6 +39,23 @@ Config.useDefault = {
 
 }
 
+---@class Config.target
+Config.target = {
+    ---@type 'only-closest'|'all'|'none' the display policy for targets.
+    ---If set to 'only-closest', only the closest target will be displayed.
+    ---If set to 'all', all targets within the players range will be displayed.
+    ---If set to 'none' targets won't be marked as interactable (you can still interact, it just won't be marked).
+    ---None can also be set manually for each target if required.
+    displayPolicy = "only-closest",
+
+    ---@type number the range at which players can interact with targets by default (can be overridden by the target).
+    ---This is the distance at which the targets will be displayed to the player.
+    interactRange = 5.0,
+
+    ---@type string the key that is used to interact with targets.
+    interactKey = 'ALT',
+}
+
 ---Generates a random character ID in the format "CITIZEN-AAAAAA-0000".
 ---This ID will be used to uniquely identify a character in the game and by default
 ---also shown on the players id card.

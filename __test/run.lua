@@ -16,4 +16,7 @@ RFX_REQUIRE("__test/unit/server/inventory/inventory.lua")
 
 RFX_REQUIRE("__test/unit/server/banking/account.lua")
 
+RFX_REQUIRE("__test/unit/client/target/target.lua")
+RFX_REQUIRE("__test/unit/client/target/targetmanager.lua")
+
 Test.runAll("TESTS")

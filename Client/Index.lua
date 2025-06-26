@@ -1,3 +1,5 @@
+Package.Require('Client/Target/Target.lua')
+
 Events.SubscribeRemote("rs:core:character:wake", function (...)
 end)
 
