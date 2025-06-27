@@ -2,7 +2,7 @@
 Config = {}
 
 ---@type string the language to use.
-Config.language = "de"
+Config.language = "en"
 
 ---@class Config.log
 Config.log = {

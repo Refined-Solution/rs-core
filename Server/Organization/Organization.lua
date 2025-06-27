@@ -17,6 +17,7 @@ setmetatable(Organization, {
         obj.id = id
         obj.label = label
         obj.accountId = accountId
+        obj.funding = 0
         return obj
     end
 })

@@ -63,3 +63,8 @@ end)
 Test.new('Config.target.interactKey should be "ALT" by default', function()
     return Test.assertEqual(Config.target.interactKey, 'ALT', "Config.target.interactKey should be 'ALT' by default")
 end)
+
+Test.new('Config.language should be a 2 char string', function()
+    return Test.assertEqual(type(Config.language), "string", "Config.language should be a string") and
+           Test.assert(#Config.language == 2, "Config.language should be a 2 character string")
+end)
