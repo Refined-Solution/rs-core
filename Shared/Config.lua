@@ -1,6 +1,9 @@
 ---@class Config
 Config = {}
 
+---@type string the language to use.
+Config.language = "de"
+
 ---@class Config.log
 Config.log = {
     ---@type boolean if true, debug messages will be logged to the console.

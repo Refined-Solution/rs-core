@@ -75,8 +75,19 @@ end
 
 ---Adds the given amount of money to this account
 ---@param amount number the amount of money to add
-function Account:addBalance(amount)
+---@param description string? a description of the transaction
+function Account:addBalance(amount, description)
     self.balance = self.balance + amount
+    if not description then return end
+    local transaction = {
+        id = Config.generateTransactionId(),
+        from = "STATE",
+        to = self.id,
+        amount = amount,
+        description = description,
+        timestamp = os.time()
+    }
+    addTransaction(self, transaction)
 end
 
 ---Removes the given amount of money from this account

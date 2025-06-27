@@ -20,6 +20,7 @@ setmetatable(CCharacter, {
         cCharacter.dateOfBirth = ''
         cCharacter.gender = false
         cCharacter.bid = ''
+        cCharacter.invId = 0
         cCharacter.cache = Cache()
         return cCharacter
     end
