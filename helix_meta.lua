@@ -22,9 +22,9 @@ function Events.CallRemote(event, ...) end
 
 ---Calls the given event on the given client.
 ---@param event string the name of the event to call
----@param player Player the player to call the event on
+---@param rplayer Player the rplayer to call the event on
 ---@vararg any the arguments to pass to the event handler
-function Events.CallRemote(event, player, ...) end
+function Events.CallRemote(event, rplayer, ...) end
 
 ---Subscribes to the given event.
 ---@param event string the name of the event to subscribe to
@@ -39,17 +39,17 @@ function Events.SubscribeRemote(event, callback) end
 ---@class Player
 Player = {}
 
----Adds an event handler for the given event on the player.
+---Adds an event handler for the given event on the rplayer.
 ---@param event string the name of the event to subscribe to
 ---@param callback fun(...: any) the function to call when the event is triggered
----@overload fun(event: 'Spawn', callback: fun(player: Player))
+---@overload fun(event: 'Spawn', callback: fun(rplayer: Player))
 function Player.Subscribe(event, callback) end
 
 ---@nodiscard
----@return string name the name of the player
+---@return string name the name of the rplayer
 function Player:GetName() end
 
----Returns the players identifier.
+---Returns the rplayers identifier.
 ---@nodiscard
----@return string identifier the identifier of the player
+---@return string identifier the identifier of the rplayer
 function Player:GetIdentifier() end

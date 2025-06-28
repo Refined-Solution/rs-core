@@ -68,7 +68,7 @@ end
 ---@nodiscard
 ---@return Account account the new account object
 function Account.new()
-    local account = Account(Config.generateBankingAccountId())
+    local account = Account(Config.Generator.bankingId())
     create(account)
     return account
 end
@@ -80,7 +80,7 @@ function Account:addBalance(amount, description)
     self.balance = self.balance + amount
     if not description then return end
     local transaction = {
-        id = Config.generateTransactionId(),
+        id = Config.Generator.transactionId(),
         from = "STATE",
         to = self.id,
         amount = amount,
@@ -114,7 +114,7 @@ function Account:createTransaction(to, amount, description)
         return nil
     end
     to:addBalance(amount)
-    local id = Config.generateTransactionId()
+    local id = Config.Generator.transactionId()
     local transaction = {
         id = id,
         from = self.id,

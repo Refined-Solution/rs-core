@@ -24,7 +24,7 @@ end
 ---@param data? table<string, any> optional data to format the translation with
 ---@return string translation the translated string, or the key if no translation is found
 function Translator.translate(key, data)
-    local language = Config.language
+    local language = Config.General.language
     local translations = dictionary[language]
 
     if not translations then

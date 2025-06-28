@@ -4,10 +4,10 @@
 ---@field location vector3 the location of the target, if an entity is provided,
 ---                        this will be the offset from the entity's position
 ---@field options table<string, {label: string, callback: fun()}> the options available for this target
----@field interactRange number the range at which players can interact with this target, this will also
----                            be the distance at which the target will be displayed to the player, if
+---@field interactRange number the range at which rplayers can interact with this target, this will also
+---                            be the distance at which the target will be displayed to the rplayer, if
 ---                            the display parameter is not set to false and the display policy is not set to 'none'
----@field visible boolean if true, the target will be displayed to the player
+---@field visible boolean if true, the target will be displayed to the rplayer
 Target = {}
 setmetatable(Target, {
     ---@nodiscard
@@ -68,13 +68,13 @@ function Target:display()
 end
 
 ---Called when this target should be updated.
----This is called every second, or every frame, depending on the players distance
+---This is called every second, or every frame, depending on the rplayers distance
 ---to this target.
----@param playerLocation vector3 the location of the player
----@return boolean inRange if true, the target is within range of the player and the player
+---@param rplayerLocation vector3 the location of the rplayer
+---@return boolean inRange if true, the target is within range of the rplayer and the rplayer
 ---                        is looking at the target, otherwise false
 ---@return number distance the distance to the target
-function Target:onUpdate(playerLocation)
+function Target:onUpdate(rplayerLocation)
     -- TODO: Requires more intel on the HELIX API
     return false, 0.0
 end

@@ -17,10 +17,10 @@ end
 ---@param location vector3? the location of the target, if an entity is provided,
 ---                        this will be the offset from the entity's position
 ---@param options table<string, {label: string, callback: fun()}> the options available for this target
----@param interactRange number? the range at which players can interact with this target, this will also
----                             be the distance at which the target will be displayed to the player, if
+---@param interactRange number? the range at which rplayers can interact with this target, this will also
+---                             be the distance at which the target will be displayed to the rplayer, if
 ---                             the display parameter is not set to false and the display policy is not set to 'none'
----@param display boolean? if true, the target will be displayed to the player, defaults to true
+---@param display boolean? if true, the target will be displayed to the rplayer, defaults to true
 function TargetManager.addTarget(name, entity, location, options, interactRange, display)
     if display == nil then
         display = true
@@ -43,16 +43,16 @@ end
 ---                        range and therefore needs to be updated every frame
 function TargetManager.updateTargets()
     -- TODO: this requires more intel on the HELIX API
-    -- to find the players location and with that the
+    -- to find the rplayers location and with that the
     -- targets in range.
     return false
 end
 
----Called when the player pressed the ineract button.
----This will try to find the target the player is trying to interact with
+---Called when the rplayer pressed the ineract button.
+---This will try to find the target the rplayer is trying to interact with
 ---and then open the interaction menu for that target.
 function TargetManager.interactButtonPressed()
     --TODO: this requires more intel on the HELIX API
-    -- to find the players location and with that the
+    -- to find the rplayers location and with that the
     -- targets in range.
 end

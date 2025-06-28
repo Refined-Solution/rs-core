@@ -6,7 +6,7 @@ RESOURCE_START(resource)
 local client = SIMULATOR_CREATE(simulation, "CLIENT")
 
 local env = ENVIRONMENT_GET(server, resource)
-local Player = ENVIRONMENT_GET_VAR(env, "Player")
+local HPlayer = ENVIRONMENT_GET_VAR(env, "HPlayer")
 local Core = ENVIRONMENT_GET_VAR(env, "Core")
 local LogSystem = ENVIRONMENT_GET_VAR(env, "LogSystem")
 
@@ -82,27 +82,27 @@ Test.new('Core.hasModule should return true for existing module', function (self
            Test.assert(not hasModule2, "Core should not have module '" .. moduleName2 .. "'")
 end)
 
-Test.new('Core.getPlayers should return all online players', function (self)
+Test.new('Core.getPlayers should return all online rplayers', function (self)
     -- given
-    local players = Core.getPlayers()
+    local rplayers = Core.getPlayers()
 
     -- when
-    local size = #players
+    local size = #rplayers
 
     -- then
-    return Test.assert(size > 0, "Core should return at least one player") and
-           Test.assert(type(players[1]) == "table", "Core should return players as table")
+    return Test.assert(size > 0, "Core should return at least one rplayer") and
+           Test.assert(type(rplayers[1]) == "table", "Core should return rplayers as table")
 end)
 
-Test.new('Core.getPlayer should return the correct player', function (self)
+Test.new('Core.getPlayer should return the correct rplayer', function (self)
     -- given
-    local player = Player.__of(client)
-    local identifier = player:GetIdentifier()
+    local rplayer = HPlayer.__of(client)
+    local identifier = rplayer:GetIdentifier()
 
     -- when
-    local cPlayer = Core.getPlayer(player)
+    local rplayer = Core.getPlayer(rplayer)
     -- then
-    return Test.assert(cPlayer ~= nil and cPlayer:getIdentifier() == identifier, "Core should return correct player for Core.getPlayer")
+    return Test.assert(rplayer ~= nil and rplayer:getIdentifier() == identifier, "Core should return correct rplayer for Core.getPlayer")
 end)
 
 Test.new('Player should be registered on spawn', function (self)
@@ -139,5 +139,5 @@ Test.new('Player join should create a log entry', function (self)
     local nowSize = #Core.LogSystem.current
 
     --then
-    return Test.assert(nowSize == currentSize + 1, "Log entry should be created on player join")
+    return Test.assert(nowSize == currentSize + 1, "Log entry should be created on rplayer join")
 end)

@@ -3,76 +3,76 @@
 Core = {}
 Core.LogSystem = LogSystem()
 
----@type table<string, CPlayer> the mapping of player identifiers to their corresponding CPlayer objects.
-local playersByIdentifier = {}
+---@type table<string, Player> the mapping of rplayer identifiers to their corresponding Player objects.
+local rplayersByIdentifier = {}
 
----Called when a player joins the server.
----This creates the player object and adds it to the player mappings.
----@param player Player the player that just joined the server.
-local function onJoin(player)
-    local cPlayer = CPlayer.load(player)
-    if not cPlayer then
-       cPlayer = CPlayer.new(player)
+---Called when a rplayer joins the server.
+---This creates the rplayer object and adds it to the rplayer mappings.
+---@param rplayer Player the rplayer that just joined the server.
+local function onJoin(source)
+    local rplayer = Player.load(source)
+    if not rplayer then
+       rplayer = Player.new(source)
     end
-    playersByIdentifier[cPlayer:getIdentifier()] = cPlayer
-    Log.info("Player {name} joined with identifier {identifier}.", {name = player:GetName(), identifier = cPlayer:getIdentifier()})
+    rplayersByIdentifier[rplayer:getIdentifier()] = rplayer
+    Log.info("Player {name} joined with identifier {identifier}.", {name = rplayer:getName(), identifier = rplayer:getIdentifier()})
     Core.LogSystem:createEntry(
         "rs-core",
-        { "join", "player", "player:quit" },
+        { "join", "rplayer", "rplayer:quit" },
         StringUtils.format("Player {name} joined the server with identifier {identifier}.", {
-            name = player:GetName(),
-            identifier = cPlayer:getIdentifier()
+            name = rplayer:getName(),
+            identifier = rplayer:getIdentifier()
         }),
         {
-            identifier = cPlayer:getIdentifier(),
-            playerName = player:GetName(),
+            identifier = rplayer:getIdentifier(),
+            rplayerName = rplayer:getName(),
         }
     )
 end
 
----Called when a player quits the server.
----This removes the player object from the player mappings and logs out the player.
----@param player Player the player that is quitting the server.
+---Called when a rplayer quits the server.
+---This removes the rplayer object from the rplayer mappings and logs out the rplayer.
+---@param player number the rplayer that is quitting the server.
 local function onQuit(player)
-    Log.info("Player {name} left the server.", {name = player:GetName()})
+    Log.info("Player {name} left the server.", {name = HPlayer.GetByIndex(player):GetName()})
     Core.LogSystem:createEntry(
         "rs-core",
-        { "quit", "player", "player:quit" },
-        StringUtils.format("Player {name} left the server.", {name = player:GetName()}),
+        { "quit", "rplayer", "rplayer:quit" },
+        StringUtils.format("Player {name} left the server.", {name = HPlayer.GetByIndex(player):GetName()}),
         {
-            identifier = player:GetIdentifier(),
-            playerName = player:GetName(),
+            identifier = HPlayer.GetByIndex(player):GetIdentifier(),
+            rplayerName = HPlayer.GetByIndex(player):GetName(),
         }
     )
-    local cPlayer = playersByIdentifier[player:GetIdentifier()]
-    if not cPlayer then return end
-    cPlayer:logout()
-    playersByIdentifier[cPlayer:getIdentifier()] = nil
+    local rplayer = rplayersByIdentifier[HPlayer.GetByIndex(player):GetIdentifier()]
+    if not rplayer then return end
+    rplayer:logout()
+    rplayersByIdentifier[rplayer:getIdentifier()] = nil
 end
 
----Returns a list of all players that are currently online.
+---Returns a list of all rplayers that are currently online.
 ---@nodiscard
----@return CPlayer[] players the list of all online players.
+---@return Player[] rplayers the list of all online rplayers.
 function Core.getPlayers()
-    local playerList = {}
-    for _, cPlayer in pairs(playersByIdentifier) do
-        table.insert(playerList, cPlayer)
+    local rplayerList = {}
+    for _, rplayer in pairs(rplayersByIdentifier) do
+        table.insert(rplayerList, rplayer)
     end
-    return playerList
+    return rplayerList
 end
 
----Returns the CPlayer object for the given Player object or identifier. This will only return players
----that are currently online. To get an offline player, you should use the static functions in the CPlayer class.
+---Returns the Player object for the given Player object or identifier. This will only return rplayers
+---that are currently online. To get an offline rplayer, you should use the static functions in the Player class.
 ---@nodiscard
----@param player Player|string the player or player identifier to get the CPlayer object for.
----@return CPlayer? cplayer the core player object for the given player.
-function Core.getPlayer(player)
-    local isIdentifier = type(player) == 'string'
+---@param rplayer Player|string the rplayer or rplayer identifier to get the Player object for.
+---@return Player? crplayer the core rplayer object for the given rplayer.
+function Core.getPlayer(rplayer)
+    local isIdentifier = type(rplayer) == 'string'
     if isIdentifier then
-        return playersByIdentifier[player]
+        return rplayersByIdentifier[rplayer]
     else
-        ---@cast player Player
-        return playersByIdentifier[player:GetIdentifier()]
+        ---@cast rplayer Player
+        return rplayersByIdentifier[rplayer:GetIdentifier()]
     end
 end
 
@@ -136,11 +136,5 @@ function Core.registerItem(name, label, description, weight)
     ItemStack.createConstructor(name, label, description, weight)
 end
 
-Player.Subscribe('Spawn', onJoin)
-Player.Subscribe('Destroy', onQuit)
-
-Events.Subscribe('rs:core:player:new', function()
-  -- TODO: just to ignore warnings.
-end)
-
-Package.Export('Core', Core)
+Events.Subscribe('Spawn', onJoin)
+Events.Subscribe('Destroy', onQuit)
