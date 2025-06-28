@@ -1,8 +1,0 @@
-Package.Require("Shared/Cache.lua")
-Package.Require("Shared/Config.lua")
-Package.Require("Shared/Util/String.lua")
-Package.Require("Shared/Util/Log.lua")
-Package.Require("Shared/Util/Collection.lua")
-Package.Require("Shared/Util/Table.lua")
-Package.Require("Shared/Util/Translator.lua")
-Package.Require("Shared/Locale/" .. tostring(Config.language) .. ".lua")

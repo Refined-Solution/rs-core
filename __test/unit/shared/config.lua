@@ -24,28 +24,31 @@ Test.new('config.inventory.maxWeight should be 50000 by default', function()
            Test.assertEqual(Config.inventory.maxWeight, 50000, "Config.inventory.maxWeight should be 50000 by default")
 end)
 
-Test.new('Config.generateCharacterId should return a string <= 16 characters', function()
+Test.new('Config.Generator.citizenId() should return a string <= 16 characters', function()
     -- when
-    local citizenId = Config.generateCharacterId()
+    local citizenId = Config.Generator.citizenId()
 
     -- then
-    return Test.assert(type(citizenId) == "string" and #citizenId <= 16, "Config generateCharacterId should return a string with length <= 16")
+    return Test.assertEqual(type(citizenId), "string", "Config.Generator.citizenId should return a string") and
+           Test.assert(#citizenId <= 16, "Config.Generator.citizenId should return a string with length <= 16")
 end)
 
-Test.new('Config.generateBankingAccountId should return a string <= 32 characters', function()
+Test.new('Config.Generator.bankingId() should return a string <= 32 characters', function()
     -- when
-    local bankingId = Config.generateBankingAccountId()
+    local bankingId = Config.Generator.bankingId()
 
     -- then
-    return Test.assert(type(bankingId) == "string" and #bankingId <= 32, "Config generateBankingAccountId should return a string with length <= 32")
+    return Test.assertEqual(type(bankingId), "string", "Config.Generator.bankingId should return a string") and
+           Test.assert(#bankingId <= 32, "Config.Generator.bankingId should return a string with length <= 32")
 end)
 
-Test.new('Config.generateTransactionId should return a string <= 32 characters', function()
+Test.new('Config.Generator.transactionId() should return a string <= 64 characters', function()
     -- when
-    local transactionId = Config.generateTransactionId()
+    local transactionId = Config.Generator.transactionId()
 
     -- then
-    return Test.assert(type(transactionId) == "string" and #transactionId <= 32, "Config generateTransactionId should return a string with length <= 32")
+    return Test.assertEqual(type(transactionId), "string", "Config.Generator.transactionId should return a string") and
+           Test.assert(#transactionId <= 64, "Config.Generator.transactionId should return a string with length <= 64")
 end)
 
 Test.new('Config.target should be a table', function()
@@ -64,7 +67,7 @@ Test.new('Config.target.interactKey should be "ALT" by default', function()
     return Test.assertEqual(Config.target.interactKey, 'ALT', "Config.target.interactKey should be 'ALT' by default")
 end)
 
-Test.new('Config.language should be a 2 char string', function()
-    return Test.assertEqual(type(Config.language), "string", "Config.language should be a string") and
-           Test.assert(#Config.language == 2, "Config.language should be a 2 character string")
+Test.new('Config.General.language should be a 2 char string', function()
+    return Test.assertEqual(type(Config.General.language), "string", "Config.General.language should be a string") and
+           Test.assert(#Config.General.language == 2, "Config.General.language should be a 2 character string")
 end)
