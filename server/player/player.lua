@@ -49,10 +49,10 @@ Player.__index = Player
 ---Loads the rplayer object for the given rplayer.
 ---If the rplayer does not have an entry in the database, it will return nil.
 ---@nodiscard
----@param rplayer Player the helix rplayer object
+---@param source number the helix rplayer object
 ---@return Player? rplayer the loaded Player instance or nil if the rplayer does not have an entry
-function Player.load(rplayer)
-    local rplayer = Player(rplayer)
+function Player.load(source)
+    local rplayer = Player(source)
     if not load(rplayer) then
         return nil
     end

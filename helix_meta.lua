@@ -53,3 +53,43 @@ function Player:GetName() end
 ---@nodiscard
 ---@return string identifier the identifier of the rplayer
 function Player:GetIdentifier() end
+
+---@class HPlayer
+HPlayer = {}
+
+---Returns the HPlayer object for the player with the given index
+---@nodiscard
+---@param player number the index of the player to get the HPlayer object for
+---@return HPlayer? hplayer the HPlayer object for the given player index, or nil
+function HPlayer.GetByIndex(player) end
+
+---Returns the identifier of this HPlayer.
+---@nodiscard
+---@return string identifier the identifier of this HPlayer
+function HPlayer:GetIdentifier() end
+
+---Returns the name of this HPlayer.
+---@nodiscard
+---@return string name the name of this HPlayer
+function HPlayer:GetName() end
+
+---Triggers the given event on the client with the given player id.
+---@param event string the name of the event to trigger
+---@param player number the player id to trigger the event on
+---@vararg any the arguments to pass to the event handler
+function TriggerClientEvent(event, player, ...) end
+
+---Triggers the given event on the server.
+---@param event string the name of the event to trigger
+---@vararg any the arguments to pass to the event handler
+function TriggerServerEvent(event, ...) end
+
+---Registers a client event that can be triggered by the server.
+---@param event string the name of the event to register
+---@param callback fun(...: any) the function to call when the event is triggered
+function RegisterClientEvent(event, callback) end
+
+---Registers a server event that can be triggered by the client.
+---@param event string the name of the event to register
+---@param callback fun(player: number, ...: any) the function to call when the event is triggered
+function RegisterServerEvent(event, callback) end

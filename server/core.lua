@@ -8,7 +8,7 @@ local rplayersByIdentifier = {}
 
 ---Called when a rplayer joins the server.
 ---This creates the rplayer object and adds it to the rplayer mappings.
----@param rplayer Player the rplayer that just joined the server.
+---@param source number the rplayer that just joined the server.
 local function onJoin(source)
     local rplayer = Player.load(source)
     if not rplayer then
